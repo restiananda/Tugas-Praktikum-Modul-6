@@ -9,6 +9,13 @@ import java.util.Scanner;
 
 public class KostBaru {
     
+    public static void prosesKamar(DataKamar kamar) {
+        System.out.println();
+        System.out.println("=== PROSES ===");
+        kamar.tampilkanInfo();
+        System.out.println("Proses berhasil dilakukan.");
+    }
+    
     public static void main(String[] args) {
         
         ArrayList<DataKamar> daftarKamar = new ArrayList<>();
@@ -16,6 +23,7 @@ public class KostBaru {
         daftarKamar.add(new KamarPutraBaru(101, "Andi", 500000, true));
         daftarKamar.add(new KamarPutribaru(202, "Jena", 600000, true));
         daftarKamar.add(new KamarPutraBaru(103, "satria", 550000, false));
+        daftarKamar.add(new KamarVIPBaru(301, "Layla", 1000000, true));
         
         Scanner input = new Scanner(System.in);
         
@@ -41,13 +49,16 @@ public class KostBaru {
                     System.out.println("=== TAMBAH DATA BARU ===");
                     System.out.println("1. Kamar Putra");
                     System.out.println("2. Kamar Putri");
+                    System.out.println("3. Kamar VIP");
                     System.out.print("Pilih tipe kamar: ");
+                    
                     int tipe = input.nextInt();
                     
                     System.out.print("Nomor kamar: ");
                     int nomorBaru = input.nextInt();
                     
                     input.nextLine();
+                    
                     System.out.print("Nama penghuni: ");
                     String penghuniBaru = input.nextLine();
                     
@@ -68,6 +79,15 @@ public class KostBaru {
                         daftarKamar.add(new KamarPutribaru(nomorBaru, penghuniBaru, hargaBaru, wifi));
                         
                         System.out.println("Data kamar putri berhasil ditambahkan.");
+                        
+                    } else if (tipe == 3){
+                        
+                        System.out.print("Apakah ada fasilitas premium? (true/false): ");
+                        boolean premium = input.nextBoolean();
+                        
+                        daftarKamar.add(new KamarVIPBaru(nomorBaru, penghuniBaru, hargaBaru, premium));
+                        
+                        System.out.println("Data kamar VIP berhasil ditambahkan.");
                           
                     } else {
                         System.out.println("Tipe kamar tidak tersedia.");
@@ -90,6 +110,7 @@ public class KostBaru {
                     System.out.println();
                     System.out.println("=== PENCARIAN ===");
                     System.out.print("Masukkan nomor kamar: ");
+                    
                     int nomorCari = input.nextInt();
                     
                     boolean ditemukan = false;
@@ -97,7 +118,10 @@ public class KostBaru {
                     for (DataKamar kamar : daftarKamar){
                         if (kamar.getNomor() == nomorCari) {
                             
-                            kamar.tampilkanInfo("Data ditemukan melalui pencarian.");
+                            prosesKamar(kamar);
+                            
+                            System.out.println();
+                            kamar.tampilkanInfo("Data diproses menggunakan metode overload.");
                             
                             ditemukan = true;
                         }
